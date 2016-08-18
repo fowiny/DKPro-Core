@@ -1,4 +1,2 @@
-project-euler
+DKPro Core with Jython
 =============
-
-My solutions to project Euler 
