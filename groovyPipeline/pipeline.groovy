@@ -1,26 +1,23 @@
-#!/usr/bin/env jython
-# Fix classpath scanning - otherise uimaFIT will not find the UIMA types
-from java.lang import Thread
-from org.python.core.imp import *
-Thread.currentThread().contextClassLoader = getSyspathJavaLoader()
+#!/usr/bin/env groovy
+@Grab(group='de.tudarmstadt.ukp.dkpro.core', version='1.6.2',
+      module='de.tudarmstadt.ukp.dkpro.core.opennlp-asl')
+import de.tudarmstadt.ukp.dkpro.core.opennlp.*;
+@Grab(group='de.tudarmstadt.ukp.dkpro.core', version='1.6.2',
+      module='de.tudarmstadt.ukp.dkpro.core.languagetool-asl')
+import de.tudarmstadt.ukp.dkpro.core.languagetool.*;
+@Grab(group='de.tudarmstadt.ukp.dkpro.core', version='1.6.2',
+      module='de.tudarmstadt.ukp.dkpro.core.maltparser-asl')
+import de.tudarmstadt.ukp.dkpro.core.maltparser.*;
+@Grab(group='de.tudarmstadt.ukp.dkpro.core', version='1.6.2',
+      module='de.tudarmstadt.ukp.dkpro.core.io.text-asl')
+import de.tudarmstadt.ukp.dkpro.core.io.text.*;
+@Grab(group='de.tudarmstadt.ukp.dkpro.core', version='1.6.2',
+      module='de.tudarmstadt.ukp.dkpro.core.io.conll-asl')
+import de.tudarmstadt.ukp.dkpro.core.io.conll.*;
 
-# Dependencies and imports for DKPro modules
-from jip.embed import require
-require('de.tudarmstadt.ukp.dkpro.core:de.tudarmstadt.ukp.dkpro.core.opennlp-asl:1.6.2')
-from de.tudarmstadt.ukp.dkpro.core.opennlp import *
-require('de.tudarmstadt.ukp.dkpro.core:de.tudarmstadt.ukp.dkpro.core.languagetool-asl:1.6.2')
-from de.tudarmstadt.ukp.dkpro.core.languagetool import *
-require('de.tudarmstadt.ukp.dkpro.core:de.tudarmstadt.ukp.dkpro.core.maltparser-asl:1.6.2')
-from de.tudarmstadt.ukp.dkpro.core.maltparser import *
-require('de.tudarmstadt.ukp.dkpro.core:de.tudarmstadt.ukp.dkpro.core.io.text-asl:1.6.2')
-from de.tudarmstadt.ukp.dkpro.core.io.text import *
-require('de.tudarmstadt.ukp.dkpro.core:de.tudarmstadt.ukp.dkpro.core.io.conll-asl:1.6.2')
-from de.tudarmstadt.ukp.dkpro.core.io.conll import *
-
-# uimaFIT imports
-from org.apache.uima.fit.pipeline.SimplePipeline import *
-from org.apache.uima.fit.factory.AnalysisEngineFactory import *
-from org.apache.uima.fit.factory.CollectionReaderFactory import *
+import static org.apache.uima.fit.pipeline.SimplePipeline.*;
+import static org.apache.uima.fit.factory.AnalysisEngineFactory.*;
+import static org.apache.uima.fit.factory.CollectionReaderFactory.*;
 
 runPipeline(
   createReaderDescription(TextReader,
